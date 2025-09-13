@@ -1,0 +1,1 @@
+Its not a project, so i havent built anything with it, but it is a nice explanation of how classes and objects work, how methods for a object are created and also what are dunder methods and how they are used, and in future i will try to add other parts of the oops like inheritance and etc..
