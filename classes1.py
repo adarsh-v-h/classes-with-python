@@ -100,3 +100,43 @@ print(smeg)# output: smeg (Rating: 7.0)
 # to call repr, 
 print(repr(smeg)) #output: Microwave(brand = "smeg", power_rating = "7.0")
 
+# now lets see some more types of class and its functionality,
+# lets see about class variables and instance variables
+class SuperMicrowave(Microwave): #this class "SuperMicrowave" inherits all the properties of the parent class "Microwave"
+# with inheriting we can access methods and attributes from the parent class, we use inheritance to increse the functionality further more
+
+	# these are class variables, that are shared by all instance and can be accessed in any methods
+	# these variables will be stored in the namespace of class, and not in individual instances
+	appliance_type = "Kitchen Appliance"
+	total_microwaves = 0
+
+	#here this __init__ overwrites the parent class's __init__
+	def __init__(self, brand: str, power_rating: float, tunred_on: bool = False):
+		#here we are using super().__init__ to use the initialization from parent class
+		super().__init__(brand, power_rating, tunred_on) # so we will get these values initialized into the object using parent class
+		# this can avoid repeated code of again initializing each character
+
+		#this is a variable instance, specific only to this variable, and is in instance namespace
+		self.serial_number = f"MW-{SuperMicrowave.total_microwaves + 1:04d}" 
+		# so here the whole SuperMicrowave.total_microwaves + 1 gives 1, but with string formating :04d means,
+		# for ths result from this expression, ie SuperMicrowave.total_microwaves + 1 = 1, d -> keep it decimal, 4 -> it should have 4 lenght, 0 -> if lenght is less than 4 fill the rest with 0
+		# so to access a class variable even in the class, we have to use "." ClassName.variable
+		# therefore, the 1 for the first object becomes 0001
+		SuperMicrowave.total_microwaves +=1 # adding 1 so the next instance gets a different serial number
+
+# we can create instances just like before, 
+mw1 = SuperMicrowave("SuperBrand", 9.5)
+mw2 = SuperMicrowave("Megabrand", 10.0)
+# here we only gave 2 characters as input, but we have total 4, the other 2 ??
+# one is our default turned_on character, which is False and the other is serial_number which is instance character which is created inside
+
+# the instance variable can be accesses same as the other variable that we sent in
+print(mw1.serial_number)
+print(mw2.serial_number)
+# these will return the serial_number value, which is coded to be unique to each instance
+
+#to get the class variables
+print(SuperMicrowave.appliance_type)
+print(f"Number of INSTANCE of SuperMicrowave: {SuperMicrowave.total_microwaves}")
+# output: Number of INSTANCE of SuperMicrowave: 2 .... since only 2 objects are created
+
